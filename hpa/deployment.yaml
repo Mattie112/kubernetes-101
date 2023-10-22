@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+  namespace: hpa
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  template:
+    metadata:
+      labels:
+        run: php-apache
+    # This demo app is not compiled for ARM (PI) so force to run it on my laptop
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "kubernetes.io/arch"
+                    operator: NotIn
+                    values: ["arm64", "arm"] # arm = PI1&2, arm64 = PI3,4,5
+      containers:
+        - name: php-apache
+          image: registry.k8s.io/hpa-example
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
