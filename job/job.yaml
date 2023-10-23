@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+  namespace: job-matthijs
+spec:
+  completions: 50 # Run this job 50 times
+  parallelism: 50 # Run max 10 jobs in parallel
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: perl:5.34.0
+          command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(200)"]
+      restartPolicy: Never
+  backoffLimit: 4

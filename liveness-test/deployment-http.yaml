@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: liveness-http
-  namespace: liveness
+  namespace: liveness-matthijs
 spec:
   containers:
     - name: liveness-http

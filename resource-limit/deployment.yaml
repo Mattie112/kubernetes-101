@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: cpu-demo
-  namespace: limits
+  namespace: limits-matthijs
 spec:
   containers:
     - name: cpu-demo-ctr

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: php-apache
-  namespace: hpa
+  namespace: hpa-matthijs
 spec:
   selector:
     matchLabels:
@@ -11,8 +11,8 @@ spec:
     metadata:
       labels:
         run: php-apache
-    # This demo app is not compiled for ARM (PI) so force to run it on my laptop
     spec:
+    # This demo app is not compiled for ARM (PI) so force to run it on my laptop
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

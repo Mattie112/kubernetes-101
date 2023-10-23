@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: echoserver
-  namespace: echoserver
+  namespace: echoserver-matthijs
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: echoserver
@@ -13,6 +13,14 @@ spec:
       labels:
         app: echoserver
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: NotIn
+                    values: ["k3s-server"] # Force this to run on any pi and not the master (for demo purposes)
       containers:
         - image: ealen/echo-server:latest
           imagePullPolicy: IfNotPresent

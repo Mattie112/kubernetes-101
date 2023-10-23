@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: hpa
+  namespace: hpa-matthijs
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
